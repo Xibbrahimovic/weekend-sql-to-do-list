@@ -1,0 +1,51 @@
+WEEKEND TO DO APP CHECKLIST
+
+[ x]Create the database - 
+
+[x ]link to server
+
+[ x]SETUP
+    [ x]create all the necessary files for full stack 
+    [ x]server
+        [ x]module folder for pool to connect 
+        [ x]public 
+            [ x]scripts
+            [ x]vendors
+            [ x]views 
+                [ x]index.html
+            [ x]routes
+                [ x]todo.router.js
+        [x ]server.js
+    [x ].gitignore
+    [ x]database.sql
+
+
+        [ ]create table SQL code 
+
+
+    [ ]README.me
+
+
+    [ x]source in all the files to appropriate files
+        HTML
+            [ x]CSS 
+            [x ]jquery 
+            [ x]client.js 
+            [x ]bootstrap 
+        client
+            [ ]readyFunction
+                [ ]clickListeners
+        server
+            [x ]express
+            [ x]app = express();
+            [ x]
+    [ x]npm init --> install all the dependencies
+        [x ]npm install 
+        [ x]jquery
+        [ x]express
+        [ x]pg
+        [ x]body-parser
+
+
+[ ] Create a layout for the UI 
+    []
