@@ -7,6 +7,20 @@ $(document).ready(function (){
     $('#addButton').on('click', addTask);
     getTasks();
 })
+function getTasks(){
+    console.log('in getTasks');
+    //ajax call to get tasks
+       $.ajax({
+           method: 'GET',
+           url: '/todo',  
+       })
+       .then(function(tasks) {
+           renderToDOM(tasks);
+       })
+       .catch(function(error){
+           console.log('There was an error retrieving tasks from the database');
+       })
+   };//end getTasks
 
 function addTask() {
     console.log('addButton clicked!');
@@ -16,9 +30,8 @@ function addTask() {
         task: $('#dateIn').val(),
         task: $('#completedIn').val(),
         task: $('#notesIn').val(),
-
     };
-    //ajax call to server to get tasks
+    //ajax call to server to add tasks
      $.ajax({
          method: 'POST',
          url: '/todo',
@@ -29,10 +42,14 @@ function addTask() {
          getTasks();
      })
      .catch(function(error){
-         console.log('There was an error adding new tasks to the server: ' error);
+         console.log('There was an error adding new tasks to the server: ', error);
      })
 };//end addTask
 
-function getTasks(){
+function renderToDOM(tasks){
+    $('#allTasks').empty();
 
+    for(let task of tasks){
+        
+    }
 }
