@@ -1,0 +1,24 @@
+------ BASE GOALS ------
+
+[ ] Build a new database called 'weekend-to-do-app' and copy the query code into a file named 'database.sql' in your server folder
+--this will allow others to use it in the future 
+
+[ ] Create a way to retrieve your information from the database
+     **GET**
+
+[ ] Create a way to store input values from user and add a new task to the database *POST*
+
+[ ] Allow the user to update your tasks as complete/done  **PUT**
+   [ ] There should be clear signs this worked(color change, etc)
+
+[ ] Additionally, you'll want to have them be able to delete the finished ones   **DELETE**
+
+** You should have these routes going from:
+
+[ ] client---> [ ] server/router ---> database
+   .ajax            todoRouter
+
+
+------ STRETCH GOALS -------
+[ ] If date is past due, highlight field in red : compare the current date to displayed
+[ ]
