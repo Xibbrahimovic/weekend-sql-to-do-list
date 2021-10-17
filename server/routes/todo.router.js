@@ -63,12 +63,12 @@ todoRouter.put('/:id', (req,res)=>{
 
     let queryText = `
     UPDATE "tasks_table"
-    SET "completed" = $2
-    WHERE "id" = $1`
+    SET "completed" = true
+    WHERE "id" = $1;`;
 
-    let values = [id, completed];
+    let values = [id];
 
-    pool.query(queryText, values).then(result =>{
+    pool.query(queryText, values).then(result => {
         res.sendStatus(204);
     }).catch(err => {
         console.log('Error with PUT query', err);

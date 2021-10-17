@@ -6,7 +6,8 @@ $(document).ready(function (){
 
     $('#addButton').on('click', addTask);
     $('#allTasks').on('click', '.removeBtn', handleRemove);
-    $('#allTasks').on('click', 'completedBtn', markComplete);
+    $('#allTasks').on('click', '.completedBtn', markComplete);
+
     getTasks();
 })
 function getTasks(){
@@ -54,6 +55,30 @@ function addTask() {
 function markComplete(){
     console.log('In mark ready');
     let idCompleted = $(this).closest('tr').data('id');
+    let text = $(this).text();
+    let completed;
+    if(text === 'Not Complete'){
+        completed = false;
+    } else if(text ==='Completed'){
+        completed = true; 
+    }
+    console.log(completed);
+    console.log(text);
+
+    $.ajax({
+        method: 'PUT',
+        url: `/todo/${idCompleted}`,
+        data: {
+            completed: completed
+        }
+    })
+    .then(function(response) {
+        console.log('Response from idCompleted', response);
+        getTasks();
+    })
+    .catch(function (error) {
+        console.log('Could not complete', error);
+    })
 }
 
 function handleRemove(){
@@ -76,14 +101,14 @@ function renderToDOM(tasks){
     $('#allTasks').empty();
 
     for(let task of tasks){
+        console.log(task);
         if(task.completed === true){
             $(`#allTasks`).append(`
-            <tr data-id="${task.id}">
+            <tr class="done" data-id="${task.id}">
                 <th>${task.task}</th>
-                <th>${task.date}</th>
+                <th>${task.due_date.split('T')[0]}</th>
                 <th>${task.completed}</th>
                 <th>${task.notes}</th>
-                <th><button class="completedBtn">Completed</button></th>
                 <th><button class="removeBtn">Remove</button></th>
             </tr>
             `)
@@ -91,10 +116,10 @@ function renderToDOM(tasks){
             $(`#allTasks`).append(`
             <tr data-id="${task.id}">
                 <th>${task.task}</th>
-                <th>${task.date}</th>
+                <th>${task.due_date.split('T')[0]}</th>
                 <th>${task.completed}</th>
                 <th>${task.notes}</th>
-                <th><button class="completedBtn">Not Complete</button></th>
+                <th><button class="completedBtn">Complete</button></th>
                 <th><button class="removeBtn">Remove</button></th>
             </tr>
             `)
