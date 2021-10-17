@@ -26,7 +26,8 @@ todoRouter.get('/', (req, res) =>{
         })
 }); //end ajax GET route 
 
-//POST 
+
+//POST //
 todoRouter.post('/', (req, res) => {
     console.log(`in post /todo`,);
     let newTask = req.body;
@@ -52,10 +53,49 @@ todoRouter.post('/', (req, res) => {
 });
 
 
-
-
 //PUT
+todoRouter.put('/:id', (req,res)=>{
+    let id = req.params.id;
+    let completed = req.body.completed;
+
+    console.log(id);
+    console.log(completed);
+
+    let queryText = `
+    UPDATE "tasks_table"
+    SET "completed" = $2
+    WHERE "id" = $1`
+
+    let values = [id, completed];
+
+    pool.query(queryText, values).then(result =>{
+        res.sendStatus(204);
+    }).catch(err => {
+        console.log('Error with PUT query', err);
+        res.sendStatus(500);
+    })
+})
+
 
 //DELETE
+
+todoRouter.delete('/:id', (req,res) => {
+    let id = req.params.id;
+    console.log(id);
+    //pool.query...
+    let queryText = `
+    DELETE FROM "tasks_table"
+    WHERE "id" = $1;
+    `
+    let values = [id];
+
+    pool.query(queryText, values).then(result =>{
+        res.sendStatus(204);
+    })
+    .catch(err => {
+        console.log(`Error with delete query`, err);
+        res.sendStatus(500);
+    })
+})
 
 module.exports = todoRouter;

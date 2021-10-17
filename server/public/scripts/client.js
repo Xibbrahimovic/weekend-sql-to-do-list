@@ -6,6 +6,7 @@ $(document).ready(function (){
 
     $('#addButton').on('click', addTask);
     $('#allTasks').on('click', '.removeBtn', handleRemove);
+    $('#allTasks').on('click', 'completedBtn', markComplete);
     getTasks();
 })
 function getTasks(){
@@ -50,10 +51,26 @@ function addTask() {
 };//end addTask
 
 
+function markComplete(){
+    console.log('In mark ready');
+    let idCompleted = $(this).closest('tr').data('id');
+}
+
 function handleRemove(){
     console.log('In remove button');
-    
-}
+    let idToDelete = $(this).closest('tr').data('id');//finding id of the row button was clicked on 
+    $.ajax({
+        method: 'DELETE',
+        url: `/todo/${idToDelete}`,//going to specific id route
+    })
+    .then(function(response){
+        console.log('Response from remove', response);
+        getTasks();
+    })
+    .catch(function(error){
+        console.log('Delete failed', error);
+    })
+}//end handleRemove
 
 function renderToDOM(tasks){
     $('#allTasks').empty();
