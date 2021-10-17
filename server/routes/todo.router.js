@@ -27,6 +27,32 @@ todoRouter.get('/', (req, res) =>{
 }); //end ajax GET route 
 
 //POST 
+todoRouter.post('/', (req, res) => {
+    console.log(`in post /todo`,);
+    let newTask = req.body;
+    console.log(`Adding new task`, newTask);
+
+    let queryText = `INSERT INTO "tasks_table" ("task", "due_date", "completed", "notes")
+    VALUES($1, $2, $3, $4);`;
+
+    pool.query(queryText, [
+        newTask.task,
+        newTask.date,
+        newTask.completed,
+        newTask.notes,
+    ])
+    .then((result) => {
+        res.sendStatus(201);
+    })
+    .catch((error) =>{  
+        console.log(`Error adding new task`, error);
+        res.sendStatus(500);
+    }); 
+
+});
+
+
+
 
 //PUT
 
